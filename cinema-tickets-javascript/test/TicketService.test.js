@@ -8,7 +8,7 @@ describe('TicketService', () => {
   let ticketService;
 
   beforeEach(() => {
-    ticketService = new TicketService();
+    ticketService = new TicketService(true);
   });
 
   describe('Validation', () => {

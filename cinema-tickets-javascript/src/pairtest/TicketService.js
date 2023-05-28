@@ -4,7 +4,12 @@ import TicketPaymentService from '../thirdparty/paymentgateway/TicketPaymentServ
 import SeatReservationService from '../thirdparty/seatbooking/SeatReservationService';
 
 export default class TicketService {
-  
+
+  /**
+   * Dry run flag
+   */
+  #dryRun = false;
+
   /**
    * Total price of tickets
    */
@@ -46,9 +51,12 @@ export default class TicketService {
   /**
    * Initialise the class by setting the service properties
    */
-  constructor() {
+  constructor(dryRun) {
     this.#paymentService = new TicketPaymentService();
     this.#reservationService = new SeatReservationService();
+    if (dryRun) {
+      this.#dryRun = true;
+    }
   }
 
   /**
@@ -76,13 +84,15 @@ export default class TicketService {
 
     // Purchase, reserve and return summary
 
-    this.#makePaymentAndReserveSeats(accountId, this.#totalAmount, this.#totalSeats);
-
-    return {
-      accountId,
-      totalAmount: this.#totalAmount,
-      totalSeats: this.#totalSeats
-    };
+    if (this.#dryRun) {
+      return {
+        accountId,
+        totalAmount: this.#totalAmount,
+        totalSeats: this.#totalSeats
+      };
+    } else {
+      this.#makePaymentAndReserveSeats(accountId, this.#totalAmount, this.#totalSeats);
+    }
   }
 
   /**
