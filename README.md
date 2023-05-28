@@ -14,4 +14,4 @@ npm run test
 
 ## Further Information
 
-For more information regarding this exercise and it's objectives and business rules please read the [EXERCISE.md](https://github.com) file.
+For more information regarding this exercise and it's objectives and business rules please read the [EXERCISE.md](https://github.com/umarsheikh13/cinema-tickets/blob/main/EXERCISE.md) file.
